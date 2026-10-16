@@ -1,0 +1,35 @@
+# Sentrion local MediaMTX configuration.
+# Dynamic camera paths are added by the FastAPI backend through the Control API.
+
+logLevel: info
+
+# Keep the Control API local. It can contain sensitive stream configuration.
+api: true
+apiAddress: 127.0.0.1:9997
+
+# MediaMTX also exposes RTSP locally if you want to inspect proxied streams.
+rtsp: true
+rtspAddress: :8554
+rtspTransports: [tcp]
+
+# HLS fallback.
+hls: true
+hlsAddress: :8888
+hlsAllowOrigins: ['*']
+hlsAlwaysRemux: false
+
+# Browser live view. Sentrion embeds the MediaMTX WebRTC reader page.
+webrtc: true
+webrtcAddress: :8889
+webrtcAllowOrigins: ['*']
+webrtcLocalUDPAddress: :8189
+webrtcIPsFromInterfaces: true
+
+# All actual camera paths are created at runtime by Sentrion.
+pathDefaults:
+  rtspTransport: tcp
+  sourceOnDemand: true
+  sourceOnDemandStartTimeout: 15s
+  sourceOnDemandCloseAfter: 15s
+
+paths: {}

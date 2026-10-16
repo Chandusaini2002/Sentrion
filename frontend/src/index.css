@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply bg-surface-0 text-ink-primary;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  ::selection {
+    @apply bg-accent-dim text-accent-text;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border-strong rounded-full;
+  }
+}
+
+@layer utilities {
+  .scan-frame {
+    box-shadow: inset 0 0 0 1px rgba(62, 147, 176, 0.35);
+  }
+}

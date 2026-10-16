@@ -1,0 +1,12 @@
+# Project-level metadata only — dependencies are still installed from
+# requirements.txt (see README.md), this file does not add a build system.
+#
+# `requires-python` is what actually matters here: it's read by pyenv,
+# uv, hatch, mypy/ruff (for target-version inference), and IDEs to know
+# this project cannot run on Python < 3.11. See app/__init__.py for the
+# runtime guard that enforces the same minimum at import time.
+[project]
+name = "sentrion-backend"
+version = "0.1.0"
+description = "Sentrion API — FastAPI + PostgreSQL backend foundation"
+requires-python = ">=3.11"

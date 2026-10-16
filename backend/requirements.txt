@@ -1,0 +1,43 @@
+# Requires Python 3.11+ (see .python-version / pyproject.toml / README.md
+# "Requirements" — the codebase uses PEP 604 `X | None` union syntax,
+# which needs 3.10+ at minimum; this project targets 3.11+).
+
+# --- Web framework ---
+fastapi>=0.111,<1.0
+uvicorn[standard]>=0.29,<1.0
+
+# --- Database ---
+sqlalchemy>=2.0,<3.0
+psycopg2-binary>=2.9,<3.0
+alembic>=1.13,<2.0
+
+# --- Validation / settings ---
+pydantic>=2.7,<3.0
+pydantic-settings>=2.2,<3.0
+email-validator>=2.1
+
+# --- Password hashing (prep for JWT auth stage) ---
+# passlib 1.7.4 (the latest release — the project is effectively
+# unmaintained) reads `bcrypt.__about__.__version__` to detect the
+# backend's version. bcrypt 4.1+ removed that attribute entirely, which
+# makes passlib log "(trapped) error reading bcrypt version" and then
+# mis-handle its own >72-byte safety check, raising
+# `ValueError: password cannot be longer than 72 bytes` even for short
+# passwords. Pinning bcrypt to the last 4.0.x release (still has
+# __about__, still enforces the real 72-byte bcrypt limit correctly)
+# restores correct behavior without touching any hashing logic. See
+# backend/README.md → Troubleshooting for the full explanation.
+passlib[bcrypt]>=1.7.4,<2.0
+bcrypt==4.0.1
+
+# --- Environment loading ---
+python-dotenv>=1.0,<2.0
+
+# --- Future stages (not installed/used yet, kept here as a roadmap) ---
+# python-jose[cryptography]   # JWT encode/decode — added in the authentication stage
+# ultralytics                 # YOLO inference — added in the AI/computer-vision stage
+# opencv-python-headless      # RTSP frame handling — added in the camera-streaming stage
+
+# JWT authentication
+PyJWT>=2.10,<3.0
+cryptography>=43,<47
